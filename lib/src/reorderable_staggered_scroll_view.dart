@@ -230,42 +230,47 @@ class ReorderableStaggeredScrollView extends StatefulWidget {
   /// The axis direction of the grid, if applicable.
   final AxisDirection? axisDirection;
 
+  final double crossAxisSpacing;
+  final double mainAxisSpacing;
+
   /// Constructor for creating a ReorderableStaggeredScrollView in a list layout.
-  const ReorderableStaggeredScrollView.list({
-    super.key,
-    this.enable = true,
-    required this.children,
-    this.isLongPressDraggable = true,
-    this.scrollDirection = Axis.vertical,
-    this.controller,
-    this.shrinkWrap = false,
-    this.reverse = false,
-    this.primary,
-    this.physics,
-    this.padding,
-    this.dragStartBehavior = DragStartBehavior.start,
-    this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
-    this.restorationId,
-    this.clipBehavior = Clip.hardEdge,
-    this.buildFeedback,
-    this.axis,
-    this.onAccept,
-    this.onWillAccept,
-    this.onLeave,
-    this.onMove,
-    this.hitTestBehavior = HitTestBehavior.translucent,
-    this.onDragStarted,
-    this.onDragUpdate,
-    this.onDraggableCanceled,
-    this.onDragEnd,
-    this.onDragCompleted,
-    this.scrollController,
-    this.isDragNotification = false,
-    this.draggingWidgetOpacity = 0.5,
-    this.edgeScroll = 0.1,
-    this.edgeScrollSpeedMilliseconds = 100,
-    this.isNotDragList,
-  })  : axisDirection = null,
+  const ReorderableStaggeredScrollView.list(
+      {super.key,
+      this.enable = true,
+      required this.children,
+      this.isLongPressDraggable = true,
+      this.scrollDirection = Axis.vertical,
+      this.controller,
+      this.shrinkWrap = false,
+      this.reverse = false,
+      this.primary,
+      this.physics,
+      this.padding,
+      this.dragStartBehavior = DragStartBehavior.start,
+      this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
+      this.restorationId,
+      this.clipBehavior = Clip.hardEdge,
+      this.buildFeedback,
+      this.axis,
+      this.onAccept,
+      this.onWillAccept,
+      this.onLeave,
+      this.onMove,
+      this.hitTestBehavior = HitTestBehavior.translucent,
+      this.onDragStarted,
+      this.onDragUpdate,
+      this.onDraggableCanceled,
+      this.onDragEnd,
+      this.onDragCompleted,
+      this.scrollController,
+      this.isDragNotification = false,
+      this.draggingWidgetOpacity = 0.5,
+      this.edgeScroll = 0.1,
+      this.edgeScrollSpeedMilliseconds = 100,
+      this.isNotDragList,
+      this.crossAxisSpacing = 0,
+      this.mainAxisSpacing = 0})
+      : axisDirection = null,
         isList = true,
         crossAxisCount = 1;
 
@@ -288,6 +293,8 @@ class ReorderableStaggeredScrollView extends StatefulWidget {
     this.clipBehavior = Clip.hardEdge,
     this.axis,
     this.hitTestBehavior = HitTestBehavior.translucent,
+    this.crossAxisSpacing = 0,
+    this.mainAxisSpacing = 0,
 
     /// A function that builds the feedback widget during dragging.
     Widget Function(ReorderableStaggeredScrollViewGridItem, Widget, Size)?
@@ -523,6 +530,8 @@ class _ReorderableStaggeredScrollViewState
               child: buildContainer(
                 buildItems: (List<Widget> children) {
                   return StaggeredGrid.count(
+                    crossAxisSpacing: widget.crossAxisSpacing,
+                    mainAxisSpacing: widget.mainAxisSpacing,
                     crossAxisCount: widget.crossAxisCount,
                     axisDirection: widget.axisDirection,
                     children: children,
